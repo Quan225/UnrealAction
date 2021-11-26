@@ -84,6 +84,7 @@ public:
 	float GetMaxHp() { return MaxHp; }
 	void AddCurHp(float addVal) { CurHp += addVal; if (MaxHp < CurHp) CurHp = MaxHp; }
 	float GetCurHp() { return CurHp; }
+	void AddCurStemina(float addVal) { CurStemina += addVal;  if (MaxStemina < CurStemina) CurStemina = MaxStemina;}
 	float GetMaxStemina() { return MaxStemina; }
 	float GetCurStemina() { return CurStemina; }
 

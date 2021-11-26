@@ -82,6 +82,9 @@ void UItem::Remove()
 
 void UItem::ApplyItemEffect(FString Effect)
 {
+	if (OwningInventory == nullptr)
+		return;
+
 	TArray<FString> EffectArr = {};
 	Effect.ParseIntoArray(EffectArr, TEXT(" "));
 
@@ -90,18 +93,12 @@ void UItem::ApplyItemEffect(FString Effect)
 		FString CurEffect = *EffectArr[i];
 		if(CurEffect.Compare(TEXT("HealHp")) == 0)
 		{ 
-			if (OwningInventory == nullptr)
-				continue;
-
 			OwningInventory->GetOwningCharacter()->AddCurHp(30.0f);
 		}
-	/*	if (CurEffect.Compare(TEXT("HealStemina")) == 0)
+		if (CurEffect.Compare(TEXT("HealStemina")) == 0)
 		{
-			if (OwningInventory == nullptr)
-				continue;
-
 			OwningInventory->GetOwningCharacter()->AddCurStemina(30.0f);
-		}*/
+		}
 	}
 }
 
