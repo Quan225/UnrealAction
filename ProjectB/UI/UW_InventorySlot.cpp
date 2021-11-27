@@ -5,7 +5,7 @@
 void UUW_InventorySlot::NativeConstruct()
 {
 	Super::NativeConstruct();
-	ItemIcon->OnClicked.AddUniqueDynamic(this, &UUW_InventorySlot::SlotUse);
+	ItemButton->OnClicked.AddUniqueDynamic(this, &UUW_InventorySlot::SlotUse);
 }
 
 // DataComponent에서 아이템 정보를 받아서 출력 UI를 갱신
@@ -15,7 +15,7 @@ void UUW_InventorySlot::UpdateSlot(UItem* UpdateItem)
 		return;
 
 	Item = UpdateItem;
-	ItemIcon->WidgetStyle.Normal.SetResourceObject(Item->GetItemThumbnail(Item->GetItemIdx()));
+	ItemIcon->SetBrushFromTexture(Item->GetItemThumbnail(Item->GetItemIdx()));
 }
 
 void UUW_InventorySlot::SlotUse()

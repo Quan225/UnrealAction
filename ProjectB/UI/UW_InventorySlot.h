@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include <Components/Button.h>
+#include <Components/Image.h>
 #include <ProjectB/Inventory/Item.h>
 #include "UW_InventorySlot.generated.h"
 
@@ -14,14 +15,15 @@ public:
 	void NativeConstruct() override;
 protected:
 	UPROPERTY(meta = (BindWidget))
-	UButton* ItemIcon;
+	UImage* ItemIcon;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* ItemButton;
 	
 	UPROPERTY()
 	UItem* Item;
 
 public:
-	UButton* GetIcon() { return ItemIcon; }
-
 	void UpdateSlot(UItem* UpdateItem = nullptr);
 
 	UFUNCTION()
