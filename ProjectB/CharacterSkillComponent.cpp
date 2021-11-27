@@ -14,6 +14,7 @@ void UCharacterSkillComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
+	OwnerCharacter = Cast<AGameCharacter>(GetOwner());
 	CurChainType = EChainType::None;
 	CurSkillObject = nullptr;
 }
@@ -21,22 +22,6 @@ void UCharacterSkillComponent::BeginPlay()
 void UCharacterSkillComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-}
-
-// todo : 나중에 필요에 맞는 동작으로 변경할 것
-// 스킬 클래스를 Load하기 위하여 만들었으나
-// 별 쓸모가 없어서 오너 등록 및 체인데이터 등록에 쓰는중 -> 그것도 데이터 컴포넌트로 옮겨서 인스턴스랑 오너 찾는데에 쓰는중
-void UCharacterSkillComponent::LoadSkillClass()
-{
-	UProjectBGameInstance* Instance = Cast<UProjectBGameInstance>(GetWorld()->GetGameInstance());
-	if (Instance == nullptr)
-		return;
-
-	OwnerCharacter = Cast<AGameCharacter>(GetOwner());
-	if (OwnerCharacter == nullptr)
-		return;	
-	
-	//SkillClass = Instance->GetSkillClass("Player_Wraith");
 }
 
 void UCharacterSkillComponent::AddChainData(EChainType PreChainType, EChainType ChainType, EAxisInputType AxisType, EButtonInputType ButtonType, FString CharacterName, FString SkillName, int32 ChainStep)

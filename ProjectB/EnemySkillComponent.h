@@ -13,7 +13,4 @@ public:
 	UEnemySkillComponent();
 protected:
 	virtual void BeginPlay() override;
-
-protected:
-	virtual void LoadSkillClass() override;
 };

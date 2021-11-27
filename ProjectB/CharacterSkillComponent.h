@@ -82,9 +82,6 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 protected:
-	virtual void LoadSkillClass();
-
-protected:
 	UPROPERTY()
 	TMap<EChainType, FSkillSequenceArray> ChainData; // <PreChainType, ChainableSkills>
 	TArray<FCharacterSkillInstance> SkillClass;

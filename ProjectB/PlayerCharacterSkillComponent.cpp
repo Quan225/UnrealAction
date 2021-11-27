@@ -10,22 +10,14 @@ void UPlayerCharacterSkillComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	CurChainStep = 0;
-	LoadSkillClass();
-}
-
-void UPlayerCharacterSkillComponent::LoadSkillClass()
-{
-	Super::LoadSkillClass();
-
 	OwnerPlayerCharacter = Cast<APlayerCharacter>(OwnerCharacter);
-	if (OwnerPlayerCharacter == nullptr)
-		return;
+	CurChainStep = 0;
 }
 
 bool UPlayerCharacterSkillComponent::ChainOtherSkill()
 {
-	OwnerPlayerCharacter->AnimInst->StopAllMontage();
+	UAnimMontage* curMontage = OwnerPlayerCharacter->AnimInst->GetCurrentActiveMontage();
+	OwnerPlayerCharacter->AnimInst->Montage_Stop(0.5, curMontage);
 
 	if (!ChainData.Contains(OtherChainType))
 		return false;

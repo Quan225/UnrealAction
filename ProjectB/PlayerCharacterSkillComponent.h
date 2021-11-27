@@ -18,8 +18,6 @@ protected:
 protected:
 	class APlayerCharacter* OwnerPlayerCharacter;
 
-	virtual void LoadSkillClass() override;
-
 protected:
 	// 콤보 관련
 	int CurChainStep; // 현재 콤보 단계
