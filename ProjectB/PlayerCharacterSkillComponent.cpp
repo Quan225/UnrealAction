@@ -42,7 +42,7 @@ bool UPlayerCharacterSkillComponent::UseSkill(EAxisInputType AxisInput, EButtonI
 	if (NextSequence == nullptr)
 		return false;
 
-	if(NextSequence->RequireStemina > OwnerPlayerCharacter->GetCurStemina())
+	if(NextSequence->RequireStamina > OwnerPlayerCharacter->GetCurStamina())
 		return false;
 
 	if (CurChainStep == 0)
@@ -52,7 +52,7 @@ bool UPlayerCharacterSkillComponent::UseSkill(EAxisInputType AxisInput, EButtonI
 		NextChainSkillName = NextSequence->SkillName;
 		NextSequence->BindSkillObject->ExecuteSkill(OwnerPlayerCharacter);
 		
-		OwnerPlayerCharacter->SetCurStemina(OwnerPlayerCharacter->GetCurStemina() - NextSequence->RequireStemina);
+		OwnerPlayerCharacter->SetCurStamina(OwnerPlayerCharacter->GetCurStamina() - NextSequence->RequireStamina);
 		CurChainStep++;
 		return true;
 	}
@@ -68,7 +68,7 @@ bool UPlayerCharacterSkillComponent::UseSkill(EAxisInputType AxisInput, EButtonI
 		CurChainType = NextSequence->ChainType;
 		NextChainSkillName = NextSequence->SkillName;
 
-		OwnerPlayerCharacter->SetCurStemina(OwnerPlayerCharacter->GetCurStemina() - NextSequence->RequireStemina);
+		OwnerPlayerCharacter->SetCurStamina(OwnerPlayerCharacter->GetCurStamina() - NextSequence->RequireStamina);
 		bIsChainNext = true;
 		return true;
 	}

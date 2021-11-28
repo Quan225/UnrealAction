@@ -245,7 +245,7 @@ bool UProjectBGameInstance::LoadSkillInfo(FString CharacterName, FString FileRou
 		info.ImpactEffect = datas[i]->ImpactEffect;
 		info.ImpactSound = datas[i]->ImpactSound;
 		info.ComboStep = datas[i]->ComboStep;
-		info.RequireStemina = datas[i]->RequireStemina;
+		info.RequireStamina = datas[i]->RequireStamina;
 		info.Damage = datas[i]->Damage;
 		info.SectionName = datas[i]->SectionName;
 		
@@ -304,7 +304,7 @@ bool UProjectBGameInstance::LoadStatInfo()
 		FCharacterStatInfo TempStatInfo;
 		
 		TempStatInfo.Hp = row[i]->Hp;
-		TempStatInfo.Stemina = row[i]->Stemina;
+		TempStatInfo.Stamina = row[i]->Stamina;
 
 		StatInfo.Add(row[i]->CharacterName, TempStatInfo);
 	}

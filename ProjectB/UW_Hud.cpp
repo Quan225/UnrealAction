@@ -11,5 +11,5 @@ void UUW_Hud::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 	}
 
 	HealthBar->SetPercent(DisplayCharacter->GetCurHp() / DisplayCharacter->GetMaxHp());
-	SteminaBar->SetPercent(DisplayCharacter->GetCurStemina() / DisplayCharacter->GetMaxStemina());
+	StaminaBar->SetPercent(DisplayCharacter->GetCurStamina() / DisplayCharacter->GetMaxStamina());
 }

@@ -19,7 +19,7 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 		UProgressBar* HealthBar;
 	UPROPERTY(meta = (BindWidget))
-		UProgressBar* SteminaBar;
+		UProgressBar* StaminaBar;
 public:
 	void SetDisplayCharacter(APlayerCharacter* NewDisplayCharacter) { DisplayCharacter = NewDisplayCharacter; }
 };

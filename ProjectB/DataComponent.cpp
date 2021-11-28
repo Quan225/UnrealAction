@@ -64,7 +64,7 @@ bool UDataComponent::LoadSkillData()
 		SkillData = GameInstance->GetSkillInfo(CharacterName);
 		for (const auto& SD : SkillData)
 		{
-			OwnerCharacter->SkillComponent->AddChainData(SD.PreChainType, SD.ChainType, SD.AxisType, SD.ButtonType, SD.RequireStemina, CharacterName, SD.SkillName, SD.ComboStep);
+			OwnerCharacter->SkillComponent->AddChainData(SD.PreChainType, SD.ChainType, SD.AxisType, SD.ButtonType, SD.RequireStamina, CharacterName, SD.SkillName, SD.ComboStep);
 		}
 
 		return true;
@@ -76,7 +76,7 @@ bool UDataComponent::LoadSkillData()
 		SkillData = GameInstance->GetSkillInfo(CharacterName);
 		for (const auto& SD : SkillData)
 		{
-			OwnerCharacter->SkillComponent->AddChainData(SD.PreChainType, SD.ChainType, SD.AxisType, SD.ButtonType, SD.RequireStemina, CharacterName, SD.SkillName, SD.ComboStep);
+			OwnerCharacter->SkillComponent->AddChainData(SD.PreChainType, SD.ChainType, SD.AxisType, SD.ButtonType, SD.RequireStamina, CharacterName, SD.SkillName, SD.ComboStep);
 		}
 
 		return true;
@@ -100,10 +100,10 @@ bool UDataComponent::LoadStatData()
 	return true;
 }
 
-bool UDataComponent::GetCharacterStat(float& DefaultHp, float& DefaultStemina)
+bool UDataComponent::GetCharacterStat(float& DefaultHp, float& DefaultStamina)
 {
 	DefaultHp = StatData.Hp;
-	DefaultStemina = StatData.Stemina;
+	DefaultStamina = StatData.Stamina;
 	return true;
 }
 

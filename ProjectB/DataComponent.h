@@ -33,7 +33,7 @@ public:
 	virtual bool LoadSkillData();
     virtual bool LoadStatData();
 
-    bool GetCharacterStat(float& DefaultHp, float& DefaultStemina);
+    bool GetCharacterStat(float& DefaultHp, float& DefaultStamina);
 	void SetCharacterName(FString NewName) { CharacterName = NewName; }
 	FString GetCharacterName() { return CharacterName; }
 

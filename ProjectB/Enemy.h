@@ -10,7 +10,6 @@
 #include "EnemySkillComponent.h"
 #include "Enemy.generated.h"
 
-// せせせせせせせせせせ
 UENUM(BlueprintType)
 enum class EEnemyWeaponRangeType : uint8
 {

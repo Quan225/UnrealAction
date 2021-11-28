@@ -96,10 +96,10 @@ void UItem::ApplyItemEffect(FString Effect)
 			float CurHp = OwningInventory->GetOwningCharacter()->GetCurHp();
 			OwningInventory->GetOwningCharacter()->SetCurHp(CurHp + 30.0f);
 		}
-		if (CurEffect.Compare(TEXT("HealStemina")) == 0)
+		if (CurEffect.Compare(TEXT("HealStamina")) == 0)
 		{
-			float CurStemina = OwningInventory->GetOwningCharacter()->GetCurStemina();
-			OwningInventory->GetOwningCharacter()->SetCurStemina(CurStemina + 30.0f);
+			float CurStamina = OwningInventory->GetOwningCharacter()->GetCurStamina();
+			OwningInventory->GetOwningCharacter()->SetCurStamina(CurStamina + 30.0f);
 		}
 	}
 }

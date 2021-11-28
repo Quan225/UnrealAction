@@ -103,12 +103,12 @@ protected:
 
 	EAxisInputType ReadAxisInputState();
 	EButtonInputType CurButtonState;
-	float SteminaRegenRate;
-	float SteminaRegenDelayTime;
-	bool bIsRegenStemina;
+	float StaminaRegenRate;
+	float StaminaRegenDelayTime;
+	bool bIsRegenStamina;
 
 public:
-	virtual void SetCurStemina(float SteminaValue) override;
+	virtual void SetCurStamina(float StaminaValue) override;
 	void ResetAttackFlags();
 
 protected:

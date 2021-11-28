@@ -26,7 +26,7 @@ public:
 	UPROPERTY()
 		float Hp;
 	UPROPERTY()
-		float Stemina;
+		float Stamina;
 };
 
 USTRUCT(BlueprintType)
@@ -68,7 +68,7 @@ struct FCharacterSkillInfo
 
 	int ComboStep;
 	FName SectionName;
-	float RequireStemina;
+	float RequireStamina;
 	TArray<float> Damage;
 	
 	/*-------스킬 슬롯 관련 데이터--------*/

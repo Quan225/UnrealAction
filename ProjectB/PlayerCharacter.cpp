@@ -95,9 +95,9 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (bIsRegenStemina && GetCurStemina() < GetMaxStemina() && GetWorld()->GetTimeSeconds() >= SteminaRegenDelayTime)
+	if (bIsRegenStamina && GetCurStamina() < GetMaxStamina() && GetWorld()->GetTimeSeconds() >= StaminaRegenDelayTime)
 	{
-		SetCurStemina(CurStemina + SteminaRegenRate * DeltaTime);
+		SetCurStamina(CurStamina + StaminaRegenRate * DeltaTime);
 	}
 }
 
@@ -140,7 +140,7 @@ void APlayerCharacter::Server_UseSkill_Implementation(EAxisInputType AxisType, E
 
 	if (SkillComponent->UseSkill(AxisType, ButtonType))
 	{
-		bIsRegenStemina = false;
+		bIsRegenStamina = false;
 		Multi_UseSkill(AxisType, ButtonType);
 	}
 }
@@ -209,12 +209,12 @@ void APlayerCharacter::ReleaseSkillQ()
 
 void APlayerCharacter::InitStatus(FString InitCharacterName)
 {
-	DataComponent->GetCharacterStat(MaxHp, MaxStemina);
+	DataComponent->GetCharacterStat(MaxHp, MaxStamina);
 	CurHp = MaxHp;
-	CurStemina = MaxStemina;
+	CurStamina = MaxStamina;
 
 	InventoryCapacity = 24;
-	SteminaRegenRate = 30.0f;
+	StaminaRegenRate = 30.0f;
 }
 
 void APlayerCharacter::OnRep_CurHp()
@@ -391,9 +391,9 @@ EAxisInputType APlayerCharacter::ReadAxisInputState()
 	}
 }
 
-void APlayerCharacter::SetCurStemina(float SteminaValue)
+void APlayerCharacter::SetCurStamina(float StaminaValue)
 {
-	Super::SetCurStemina(SteminaValue);
+	Super::SetCurStamina(StaminaValue);
 }
 
 void APlayerCharacter::ResetAttackFlags()
@@ -403,8 +403,8 @@ void APlayerCharacter::ResetAttackFlags()
 	AnimInst->SetIsAttack(false);
 	SkillComponent->ResetChainFlags();
 
-	bIsRegenStemina = true;
-	SteminaRegenDelayTime = GetWorld()->GetTimeSeconds() + 1.0f;
+	bIsRegenStamina = true;
+	StaminaRegenDelayTime = GetWorld()->GetTimeSeconds() + 1.0f;
 }
 
 void APlayerCharacter::StartJump()
