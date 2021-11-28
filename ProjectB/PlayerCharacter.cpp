@@ -391,6 +391,12 @@ EAxisInputType APlayerCharacter::ReadAxisInputState()
 	}
 }
 
+void APlayerCharacter::SetRegenStaminaDelay()
+{
+	bIsRegenStamina = true;
+	StaminaRegenDelayTime = GetWorld()->GetTimeSeconds() + 1.0f;
+}
+
 void APlayerCharacter::SetCurStamina(float StaminaValue)
 {
 	Super::SetCurStamina(StaminaValue);
@@ -402,9 +408,6 @@ void APlayerCharacter::ResetAttackFlags()
 	SetIsAttack(false);
 	AnimInst->SetIsAttack(false);
 	SkillComponent->ResetChainFlags();
-
-	bIsRegenStamina = true;
-	StaminaRegenDelayTime = GetWorld()->GetTimeSeconds() + 1.0f;
 }
 
 void APlayerCharacter::StartJump()

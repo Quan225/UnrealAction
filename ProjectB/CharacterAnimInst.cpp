@@ -18,7 +18,7 @@ void UCharacterAnimInst::NativeUpdateAnimation(float DeltaSeconds)
 
 void UCharacterAnimInst::StopAllMontage()
 {
-	StopAllMontages(0.3f);
+	StopAllMontages(0.1f);
 }
 
 void UCharacterAnimInst::PlaySkillMontage(UAnimMontage* playMontage)

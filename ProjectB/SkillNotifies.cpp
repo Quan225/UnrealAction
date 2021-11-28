@@ -107,6 +107,7 @@ void UAttackEnd::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Ani
 		if (pc != nullptr)
 		{
 			pc->SetState(ECharacterState::Idle);
+			pc->SetRegenStaminaDelay();
 		}
 
 		AEnemy* ec = Cast<AEnemy>(MeshComp->GetOwner());

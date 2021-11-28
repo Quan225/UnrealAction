@@ -103,11 +103,13 @@ protected:
 
 	EAxisInputType ReadAxisInputState();
 	EButtonInputType CurButtonState;
+
 	float StaminaRegenRate;
 	float StaminaRegenDelayTime;
 	bool bIsRegenStamina;
 
 public:
+	void SetRegenStaminaDelay();
 	virtual void SetCurStamina(float StaminaValue) override;
 	void ResetAttackFlags();
 
