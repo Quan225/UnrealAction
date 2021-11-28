@@ -37,8 +37,6 @@ public:
 	UPROPERTY()
 		FString CharacterName;
 	UPROPERTY()
-		float Hp;
-	UPROPERTY()
 		FString AnimInstRoute;
 	UPROPERTY()
 		USkeletalMesh* SkeletalMesh;

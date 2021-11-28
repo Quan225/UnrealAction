@@ -116,7 +116,6 @@ bool UProjectBGameInstance::LoadEnemyInfo()
 	for (int32 i = 0; i < row.Num(); i++) {
 		FEnemyInfo NewInfo;
 		NewInfo.CharacterName = row[i]->CharacterName;
-		NewInfo.Hp = row[i]->Hp;
 		NewInfo.AnimInstRoute = row[i]->AnimInstRoute;
 		NewInfo.SkeletalMesh = row[i]->SkeletalMesh;
 		NewInfo.BTree = row[i]->BTree;

@@ -18,10 +18,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString CharacterName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float Hp;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float Stamina;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString AnimInstRoute;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		USkeletalMesh* SkeletalMesh;
