@@ -68,6 +68,7 @@ struct FCharacterSkillInfo
 
 	int ComboStep;
 	FName SectionName;
+	float RequireStemina;
 	TArray<float> Damage;
 	
 	/*-------스킬 슬롯 관련 데이터--------*/

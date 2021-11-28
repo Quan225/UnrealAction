@@ -94,6 +94,11 @@ void APlayerCharacter::BeginPlay()
 void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (bIsRegenStemina && GetCurStemina() < GetMaxStemina() && GetWorld()->GetTimeSeconds() >= SteminaRegenDelayTime)
+	{
+		SetCurStemina(CurStemina + SteminaRegenRate * DeltaTime);
+	}
 }
 
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -135,6 +140,7 @@ void APlayerCharacter::Server_UseSkill_Implementation(EAxisInputType AxisType, E
 
 	if (SkillComponent->UseSkill(AxisType, ButtonType))
 	{
+		bIsRegenStemina = false;
 		Multi_UseSkill(AxisType, ButtonType);
 	}
 }
@@ -208,6 +214,7 @@ void APlayerCharacter::InitStatus(FString InitCharacterName)
 	CurStemina = MaxStemina;
 
 	InventoryCapacity = 24;
+	SteminaRegenRate = 30.0f;
 }
 
 void APlayerCharacter::OnRep_CurHp()
@@ -365,27 +372,28 @@ EAxisInputType APlayerCharacter::ReadAxisInputState()
 
 	if (AngleDiff >= 0.5f)
 	{
-		//UE_LOG(LogTemp, Log, TEXT("Forward"));
 		return EAxisInputType::Front;
 	}
 	else if (AngleDiff >= -0.5f)
 	{
 		if (CheckRight >= 0)
 		{
-			//UE_LOG(LogTemp, Log, TEXT("Right"));
 			return EAxisInputType::Right;
 		}
 		else
 		{
-			//UE_LOG(LogTemp, Log, TEXT("Left"));
 			return EAxisInputType::Left;
 		}
 	}
 	else
 	{
-		//UE_LOG(LogTemp, Log, TEXT("Back"));
 		return EAxisInputType::Back;
 	}
+}
+
+void APlayerCharacter::SetCurStemina(float SteminaValue)
+{
+	Super::SetCurStemina(SteminaValue);
 }
 
 void APlayerCharacter::ResetAttackFlags()
@@ -394,36 +402,15 @@ void APlayerCharacter::ResetAttackFlags()
 	SetIsAttack(false);
 	AnimInst->SetIsAttack(false);
 	SkillComponent->ResetChainFlags();
-}
 
-//void APlayerCharacter::StartJump_Implementation()
-//{
-//
-//	UGameplayStatics::ApplyDamage(this, 10.0f, nullptr, this, UDamageType::StaticClass());
-//}
+	bIsRegenStemina = true;
+	SteminaRegenDelayTime = GetWorld()->GetTimeSeconds() + 1.0f;
+}
 
 void APlayerCharacter::StartJump()
 {
-
 	CurButtonState = EButtonInputType::Space;
 	Server_UseSkill(ReadAxisInputState(), CurButtonState);
-
-
-
-//	UGameplayStatics::ApplyDamage(this, 10.0f, nullptr, this, UDamageType::StaticClass());
-
-	/*AProjectile* SpawnProjectile = GetWorld()->SpawnActor<AProjectile>(GetActorLocation(), FRotator::ZeroRotator);
-	SpawnProjectile->InitProjectile(this, 1400.0f);*/
-
-	//FVector MoveDir = GetActorForwardVector();
-	//MoveDir.Z = 0.0f;
-	//MoveDir.Normalize();
-
-	//LaunchCharacter((MoveDir * 1000.0f) + FVector(0.0f, 0.0f, 100.0f), false, false);
-
-
-	//AnimInst->SetIsAttack(true);
-	//bPressedJump = true;
 }
 
 void APlayerCharacter::EndJump()

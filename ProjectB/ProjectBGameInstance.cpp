@@ -245,6 +245,7 @@ bool UProjectBGameInstance::LoadSkillInfo(FString CharacterName, FString FileRou
 		info.ImpactEffect = datas[i]->ImpactEffect;
 		info.ImpactSound = datas[i]->ImpactSound;
 		info.ComboStep = datas[i]->ComboStep;
+		info.RequireStemina = datas[i]->RequireStemina;
 		info.Damage = datas[i]->Damage;
 		info.SectionName = datas[i]->SectionName;
 		

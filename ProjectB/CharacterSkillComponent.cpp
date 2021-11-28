@@ -24,7 +24,7 @@ void UCharacterSkillComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-void UCharacterSkillComponent::AddChainData(EChainType PreChainType, EChainType ChainType, EAxisInputType AxisType, EButtonInputType ButtonType, FString CharacterName, FString SkillName, int32 ChainStep)
+void UCharacterSkillComponent::AddChainData(EChainType PreChainType, EChainType ChainType, EAxisInputType AxisType, EButtonInputType ButtonType, float RequireStemina, FString CharacterName, FString SkillName, int32 ChainStep)
 {
 	UProjectBGameInstance* inst = Cast<UProjectBGameInstance>(GetWorld()->GetGameInstance());
 	if (inst == nullptr)
@@ -41,6 +41,7 @@ void UCharacterSkillComponent::AddChainData(EChainType PreChainType, EChainType 
 	newSequence.SkillName = SkillName;
 	newSequence.ChainStep = ChainStep;
 	newSequence.ChainType = ChainType;
+	newSequence.RequireStemina = RequireStemina;
 
 	if (ChainData.Contains(PreChainType) && ChainData[PreChainType].Sequences.Num() > 0)
 	{

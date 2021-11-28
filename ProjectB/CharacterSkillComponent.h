@@ -56,6 +56,7 @@ struct FSkillSequence
 	EAxisInputType AxisInputType;
 	EButtonInputType ButtonInputType;
 	EChainType ChainType;
+	float RequireStemina;
 	class USkillObject* BindSkillObject;
 };
 USTRUCT(BlueprintType)
@@ -103,7 +104,7 @@ public:
 
 public:
 	// 세팅 관련
-	void AddChainData(EChainType PreChainType, EChainType ChainType, EAxisInputType AxisType, EButtonInputType ButtonType, FString CharacterName, FString SkillName, int32 ChainStep);
+	void AddChainData(EChainType PreChainType, EChainType ChainType, EAxisInputType AxisType, EButtonInputType ButtonType, float RequireStemina, FString CharacterName, FString SkillName, int32 ChainStep);
 
 public:
 	// [Server + Client] 몽타주 실행 및 그에 종속되는 동작을 정의

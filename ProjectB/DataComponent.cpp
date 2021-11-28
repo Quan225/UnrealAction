@@ -60,17 +60,11 @@ bool UDataComponent::LoadSkillData()
 	if (OnwerActor->IsA(APlayerCharacter::StaticClass()))
 	{
 		APlayerCharacter* OwnerCharacter = Cast<APlayerCharacter>(GetOwner());
-		if (OwnerCharacter == nullptr)
-		{
-			UE_LOG(LogTemp, Log, TEXT("Owner Null"));
-			return false;
-		}
 
-		// 이름을 캐릭터 제네럴 테이블에서 읽도록 변경할 것
 		SkillData = GameInstance->GetSkillInfo(CharacterName);
 		for (const auto& SD : SkillData)
 		{
-			OwnerCharacter->SkillComponent->AddChainData(SD.PreChainType, SD.ChainType, SD.AxisType, SD.ButtonType, CharacterName, SD.SkillName, SD.ComboStep);
+			OwnerCharacter->SkillComponent->AddChainData(SD.PreChainType, SD.ChainType, SD.AxisType, SD.ButtonType, SD.RequireStemina, CharacterName, SD.SkillName, SD.ComboStep);
 		}
 
 		return true;
@@ -78,17 +72,11 @@ bool UDataComponent::LoadSkillData()
 	else
 	{
 		AEnemy* OwnerCharacter = Cast<AEnemy>(OnwerActor);
-		if (OwnerCharacter == nullptr)
-		{
-			UE_LOG(LogTemp, Log, TEXT("Owner Null"));
-			return false;
-		}
 
-		// 이름을 캐릭터 제네럴 테이블에서 읽도록 변경할 것
 		SkillData = GameInstance->GetSkillInfo(CharacterName);
 		for (const auto& SD : SkillData)
 		{
-			OwnerCharacter->SkillComponent->AddChainData(SD.PreChainType, SD.ChainType, SD.AxisType, SD.ButtonType, CharacterName, SD.SkillName, SD.ComboStep);
+			OwnerCharacter->SkillComponent->AddChainData(SD.PreChainType, SD.ChainType, SD.AxisType, SD.ButtonType, SD.RequireStemina, CharacterName, SD.SkillName, SD.ComboStep);
 		}
 
 		return true;

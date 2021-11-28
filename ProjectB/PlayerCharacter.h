@@ -69,9 +69,6 @@ public:
 	virtual void Dead() override;
 	virtual bool Stun() override;
 
-protected:
-	bool CanAttack();
-
 public:
 	// 플레이어 이동 관련 함수
 	void StartJump();
@@ -100,17 +97,21 @@ private:
 public:
 	int32 GetInventoryCapacity() { return InventoryCapacity; }
 
-private:
-	// 플레이어 공격 관련
+protected:
+	// 공격 관련
+	bool CanAttack();
 
 	EAxisInputType ReadAxisInputState();
 	EButtonInputType CurButtonState;
+	float SteminaRegenRate;
+	float SteminaRegenDelayTime;
+	bool bIsRegenStemina;
 
 public:
+	virtual void SetCurStemina(float SteminaValue) override;
 	void ResetAttackFlags();
 
 protected:
-
 	UFUNCTION(Server, Reliable)
 	void Server_UseSkill(EAxisInputType AxisType, EButtonInputType ButtonType);
 	UFUNCTION(NetMulticast, Reliable)
