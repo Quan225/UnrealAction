@@ -94,6 +94,11 @@ void APlayerCharacter::BeginPlay()
 void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (bIsRegenStamina && GetCurStamina() < GetMaxStamina() && GetWorld()->GetTimeSeconds() >= StaminaRegenDelayTime)
+	{
+		SetCurStamina(CurStamina + StaminaRegenRate * DeltaTime);
+	}
 }
 
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -135,6 +140,7 @@ void APlayerCharacter::Server_UseSkill_Implementation(EAxisInputType AxisType, E
 
 	if (SkillComponent->UseSkill(AxisType, ButtonType))
 	{
+		bIsRegenStamina = false;
 		Multi_UseSkill(AxisType, ButtonType);
 	}
 }
@@ -203,11 +209,12 @@ void APlayerCharacter::ReleaseSkillQ()
 
 void APlayerCharacter::InitStatus(FString InitCharacterName)
 {
-	DataComponent->GetCharacterStat(MaxHp, MaxStemina);
+	DataComponent->GetCharacterStat(MaxHp, MaxStamina);
 	CurHp = MaxHp;
-	CurStemina = MaxStemina;
+	CurStamina = MaxStamina;
 
 	InventoryCapacity = 24;
+	StaminaRegenRate = 30.0f;
 }
 
 void APlayerCharacter::OnRep_CurHp()
@@ -365,27 +372,28 @@ EAxisInputType APlayerCharacter::ReadAxisInputState()
 
 	if (AngleDiff >= 0.5f)
 	{
-		//UE_LOG(LogTemp, Log, TEXT("Forward"));
 		return EAxisInputType::Front;
 	}
 	else if (AngleDiff >= -0.5f)
 	{
 		if (CheckRight >= 0)
 		{
-			//UE_LOG(LogTemp, Log, TEXT("Right"));
 			return EAxisInputType::Right;
 		}
 		else
 		{
-			//UE_LOG(LogTemp, Log, TEXT("Left"));
 			return EAxisInputType::Left;
 		}
 	}
 	else
 	{
-		//UE_LOG(LogTemp, Log, TEXT("Back"));
 		return EAxisInputType::Back;
 	}
+}
+
+void APlayerCharacter::SetCurStamina(float StaminaValue)
+{
+	Super::SetCurStamina(StaminaValue);
 }
 
 void APlayerCharacter::ResetAttackFlags()
@@ -394,36 +402,15 @@ void APlayerCharacter::ResetAttackFlags()
 	SetIsAttack(false);
 	AnimInst->SetIsAttack(false);
 	SkillComponent->ResetChainFlags();
-}
 
-//void APlayerCharacter::StartJump_Implementation()
-//{
-//
-//	UGameplayStatics::ApplyDamage(this, 10.0f, nullptr, this, UDamageType::StaticClass());
-//}
+	bIsRegenStamina = true;
+	StaminaRegenDelayTime = GetWorld()->GetTimeSeconds() + 1.0f;
+}
 
 void APlayerCharacter::StartJump()
 {
-
 	CurButtonState = EButtonInputType::Space;
 	Server_UseSkill(ReadAxisInputState(), CurButtonState);
-
-
-
-//	UGameplayStatics::ApplyDamage(this, 10.0f, nullptr, this, UDamageType::StaticClass());
-
-	/*AProjectile* SpawnProjectile = GetWorld()->SpawnActor<AProjectile>(GetActorLocation(), FRotator::ZeroRotator);
-	SpawnProjectile->InitProjectile(this, 1400.0f);*/
-
-	//FVector MoveDir = GetActorForwardVector();
-	//MoveDir.Z = 0.0f;
-	//MoveDir.Normalize();
-
-	//LaunchCharacter((MoveDir * 1000.0f) + FVector(0.0f, 0.0f, 100.0f), false, false);
-
-
-	//AnimInst->SetIsAttack(true);
-	//bPressedJump = true;
 }
 
 void APlayerCharacter::EndJump()

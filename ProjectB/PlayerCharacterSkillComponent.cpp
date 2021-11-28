@@ -42,6 +42,9 @@ bool UPlayerCharacterSkillComponent::UseSkill(EAxisInputType AxisInput, EButtonI
 	if (NextSequence == nullptr)
 		return false;
 
+	if(NextSequence->RequireStamina > OwnerPlayerCharacter->GetCurStamina())
+		return false;
+
 	if (CurChainStep == 0)
 	{
 		CurSkillObject = NextSequence->BindSkillObject;
@@ -49,6 +52,7 @@ bool UPlayerCharacterSkillComponent::UseSkill(EAxisInputType AxisInput, EButtonI
 		NextChainSkillName = NextSequence->SkillName;
 		NextSequence->BindSkillObject->ExecuteSkill(OwnerPlayerCharacter);
 		
+		OwnerPlayerCharacter->SetCurStamina(OwnerPlayerCharacter->GetCurStamina() - NextSequence->RequireStamina);
 		CurChainStep++;
 		return true;
 	}
@@ -63,7 +67,8 @@ bool UPlayerCharacterSkillComponent::UseSkill(EAxisInputType AxisInput, EButtonI
 		CurSkillObject = NextSequence->BindSkillObject;
 		CurChainType = NextSequence->ChainType;
 		NextChainSkillName = NextSequence->SkillName;
-		
+
+		OwnerPlayerCharacter->SetCurStamina(OwnerPlayerCharacter->GetCurStamina() - NextSequence->RequireStamina);
 		bIsChainNext = true;
 		return true;
 	}
@@ -80,7 +85,7 @@ FSkillSequence* UPlayerCharacterSkillComponent::FindChainSkillSequence(EAxisInpu
 		return nullptr;
 	}
 
-	// [server] 체인 입력이 가능한지 확인
+	// 체인 입력이 가능한지 확인
 	if (CurChainStep != 0 && !bEnableChainPeriod)
 	{
 		UE_LOG(LogTemp, Log, TEXT("Not Enable Chain Period"));

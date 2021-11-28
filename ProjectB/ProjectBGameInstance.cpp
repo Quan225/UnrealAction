@@ -116,7 +116,6 @@ bool UProjectBGameInstance::LoadEnemyInfo()
 	for (int32 i = 0; i < row.Num(); i++) {
 		FEnemyInfo NewInfo;
 		NewInfo.CharacterName = row[i]->CharacterName;
-		NewInfo.Hp = row[i]->Hp;
 		NewInfo.AnimInstRoute = row[i]->AnimInstRoute;
 		NewInfo.SkeletalMesh = row[i]->SkeletalMesh;
 		NewInfo.BTree = row[i]->BTree;
@@ -245,6 +244,7 @@ bool UProjectBGameInstance::LoadSkillInfo(FString CharacterName, FString FileRou
 		info.ImpactEffect = datas[i]->ImpactEffect;
 		info.ImpactSound = datas[i]->ImpactSound;
 		info.ComboStep = datas[i]->ComboStep;
+		info.RequireStamina = datas[i]->RequireStamina;
 		info.Damage = datas[i]->Damage;
 		info.SectionName = datas[i]->SectionName;
 		
@@ -303,7 +303,7 @@ bool UProjectBGameInstance::LoadStatInfo()
 		FCharacterStatInfo TempStatInfo;
 		
 		TempStatInfo.Hp = row[i]->Hp;
-		TempStatInfo.Stemina = row[i]->Stemina;
+		TempStatInfo.Stamina = row[i]->Stamina;
 
 		StatInfo.Add(row[i]->CharacterName, TempStatInfo);
 	}

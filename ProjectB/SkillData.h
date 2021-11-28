@@ -18,10 +18,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString CharacterName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float Hp;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float Stemina;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString AnimInstRoute;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		USkeletalMesh* SkeletalMesh;
@@ -52,6 +48,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FName SectionName; // 해당 스킬을 실행하기 위한 섹션의 이름. 섹션이 없을 시 공백
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float RequireStamina; // 스킬 사용에 필요한 스테미나
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<float> Damage; // 데미지. 다단히트 할 경우 세부 로직에서 사용할 Index를 기준으로 작성
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		EChainType PreChainType; // 연계 될 체인 단계
@@ -75,7 +73,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float Hp;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float Stemina;
+		float Stamina;
 };
 
 USTRUCT(BlueprintType)

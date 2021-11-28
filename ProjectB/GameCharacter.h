@@ -59,9 +59,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Transient, ReplicatedUsing=OnRep_CurHp)
 		float CurHp;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float MaxStemina;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Transient, ReplicatedUsing=OnRep_CurStemina)
-		float CurStemina;
+		float MaxStamina;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Transient, ReplicatedUsing=OnRep_CurStamina)
+		float CurStamina;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float IsDead;
 	UPROPERTY(Transient, ReplicatedUsing = OnRep_CharacterName)
@@ -72,21 +72,19 @@ protected:
 	UFUNCTION()
 	virtual void OnRep_CurHp();
 	UFUNCTION()
-	void OnRep_CurStemina();
+	void OnRep_CurStamina();
 	UFUNCTION()
 	virtual void OnRep_CharacterName();
 
 public:
 	void SetCurHp(float HpValue);
-	void SetCurStemina(float SteminaValue);
+	virtual void SetCurStamina(float StaminaValue);
 
 public:
 	float GetMaxHp() { return MaxHp; }
-	void AddCurHp(float addVal) { CurHp += addVal; if (MaxHp < CurHp) CurHp = MaxHp; }
 	float GetCurHp() { return CurHp; }
-	void AddCurStemina(float addVal) { CurStemina += addVal;  if (MaxStemina < CurStemina) CurStemina = MaxStemina;}
-	float GetMaxStemina() { return MaxStemina; }
-	float GetCurStemina() { return CurStemina; }
+	float GetMaxStamina() { return MaxStamina; }
+	float GetCurStamina() { return CurStamina; }
 
 public:
 	ECharacterState State;

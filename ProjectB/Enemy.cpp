@@ -169,9 +169,9 @@ void AEnemy::Multi_InitCharacter_Implementation(const FString& InitCharacterName
 
 void AEnemy::InitStatus(FString InitCharacterName)
 {
-	DataComponent->GetCharacterStat(MaxHp, MaxStemina);
+	DataComponent->GetCharacterStat(MaxHp, MaxStamina);
 	CurHp = MaxHp;
-	CurStemina = MaxStemina;
+	CurStamina = MaxStamina;
 }
 
 bool AEnemy::SetState(ECharacterState NewState)

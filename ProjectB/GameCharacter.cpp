@@ -40,7 +40,7 @@ void AGameCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 	DOREPLIFETIME(AGameCharacter, bIsDead);
 
 	DOREPLIFETIME(AGameCharacter, CurHp);
-	DOREPLIFETIME(AGameCharacter, CurStemina);
+	DOREPLIFETIME(AGameCharacter, CurStamina);
 	DOREPLIFETIME(AGameCharacter, CharacterName);
 }
 
@@ -48,9 +48,9 @@ void AGameCharacter::OnRep_CurHp()
 {
 }
 
-void AGameCharacter::OnRep_CurStemina()
+void AGameCharacter::OnRep_CurStamina()
 {
-	UE_LOG(LogTemp, Log, TEXT("Cur Stemina : %f"), CurStemina);
+	UE_LOG(LogTemp, Log, TEXT("Cur Stamina : %f"), CurStamina);
 }
 
 void AGameCharacter::OnRep_CharacterName()
@@ -65,11 +65,11 @@ void AGameCharacter::SetCurHp(float HpValue)
 	}
 }
 
-void AGameCharacter::SetCurStemina(float SteminaValue)
+void AGameCharacter::SetCurStamina(float StaminaValue)
 {
 	if (GetLocalRole() == ROLE_Authority)
 	{
-		CurStemina = FMath::Clamp(SteminaValue, 0.0f, MaxStemina);
+		CurStamina = FMath::Clamp(StaminaValue, 0.0f, MaxStamina);
 	}
 }
 
