@@ -143,6 +143,9 @@ void AEnemy::Multi_InitCharacter_Implementation(const FString& InitCharacterName
 	
 	FEnemyInfo ChInfo = GameInst->GetEnemyInfo(InitCharacterName);
 
+	AEnemyAIController* aiCon = Cast<AEnemyAIController>(GetController());
+	aiCon->InitAI(ChInfo.BTree, ChInfo.BBoard);
+
 	GetMesh()->SetSkeletalMesh(ChInfo.SkeletalMesh);
 	
 	//UClass* AnimationClass = LoadObject<UClass>(NULL, *ChInfo.AnimInstRoute);

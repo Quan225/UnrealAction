@@ -14,6 +14,9 @@ class PROJECTB_API UBTDecorator_CanAttack : public UBTDecorator
     GENERATED_BODY()
 public:
     UBTDecorator_CanAttack();
+    
+    UPROPERTY(Category = Service, EditAnywhere, meta = (ClampMin = "0.0"))
+    float AttackRange;
 
 protected:
     virtual bool CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const override;

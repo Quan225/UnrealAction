@@ -13,12 +13,12 @@ class PROJECTB_API AEnemyAIController : public AAIController
 private:
 	UBehaviorTree* BTree;
 	UBlackboardData* BBoard;
-	int32 test;
 
 public:
 	AEnemyAIController();
 
-	// 컨트롤러가 Pawn/Character를 소유할 때 호출
+	void InitAI(UBehaviorTree* InitBTree, UBlackboardData* InitBBorad);
+
 	virtual void OnPossess(APawn* InPawn) override;
 
 	void RunAI();

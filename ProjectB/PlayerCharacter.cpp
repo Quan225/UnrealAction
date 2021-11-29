@@ -14,6 +14,7 @@ APlayerCharacter::APlayerCharacter()
 	GetCapsuleComponent()->SetCollisionProfileName("Player");
 	bUseControllerRotationYaw = false;
 	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->MaxWalkSpeed = 500.0f;
 
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> cMesh(TEXT("SkeletalMesh'/Game/Character/Meshes/Wraith.Wraith'"));
 	if (cMesh.Succeeded())
