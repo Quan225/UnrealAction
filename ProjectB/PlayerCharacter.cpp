@@ -275,7 +275,7 @@ bool APlayerCharacter::SetState(ECharacterState NewState)
 	case ECharacterState::Dodge:
 		if (State == ECharacterState::Idle || State == ECharacterState::Attack)
 		{
-			Dodge(ReadAxisInputState()); // Todo :이러면 판정 꼬임 이럼안됨
+			Dodge(ReadAxisInputState());
 			State = NewState;
 		}
 		return true;
@@ -509,50 +509,51 @@ bool APlayerCharacter::Dodge(EAxisInputType AxisType)
 			DirDodge = FVector::ZeroVector;
 			bIsInvisible = false;
 			AnimInst->SetIsDodge(false);
+			SetRegenStaminaDelay();
 
 		}), 0.5f, false);
 
 	return true;
-
-	float VerKeyState = GetInputAxisValue("MoveForward");
-	float HorKeyState = GetInputAxisValue("MoveRight");
-	FVector AxisVector = FVector(VerKeyState, HorKeyState, 0.0f); // 키보드 입력 벡터
-
-	FVector CamVector = Camera->GetForwardVector(); // 카메라 forawrd 벡터
-	CamVector.Z = 0;
-	CamVector.Normalize();
-
-	AxisVector = CamVector.Rotation().RotateVector(AxisVector);
-	AxisVector.Z = 0.0f;
-	AxisVector.Normalize();
-	
-	float AngleDiff = FVector::DotProduct(CamVector, AxisVector);
-	float CheckRight = FVector::DotProduct(FVector::UpVector, (FVector::CrossProduct(CamVector, AxisVector)));
-
-//	if (CheckRight < 0)
-//		AngleDiff = -AngleDiff;
-
-	UE_LOG(LogTemp, Log, TEXT("%f, %f"), AngleDiff, CheckRight);
-
-	AnimInst->SetDodgeDegree(AngleDiff);
-	DirDodge = AxisVector;
-
-
-
-	FTimerHandle DodgeEndTimer;
-
-	GetWorld()->GetTimerManager().SetTimer(DodgeEndTimer, FTimerDelegate::CreateLambda([&]()
-		{
-			SetState(ECharacterState::Idle);
-			DirDodge = FVector::ZeroVector;
-			bIsInvisible = false;
-			AnimInst->SetIsDodge(false);
-			AnimInst->SetDodgeDegree(0.0f);
-
-
-			bUseControllerRotationYaw = false;
-			GetCharacterMovement()->bOrientRotationToMovement = true;
-		}), 0.5f, false);
+//
+//	float VerKeyState = GetInputAxisValue("MoveForward");
+//	float HorKeyState = GetInputAxisValue("MoveRight");
+//	FVector AxisVector = FVector(VerKeyState, HorKeyState, 0.0f); // 키보드 입력 벡터
+//
+//	FVector CamVector = Camera->GetForwardVector(); // 카메라 forawrd 벡터
+//	CamVector.Z = 0;
+//	CamVector.Normalize();
+//
+//	AxisVector = CamVector.Rotation().RotateVector(AxisVector);
+//	AxisVector.Z = 0.0f;
+//	AxisVector.Normalize();
+//	
+//	float AngleDiff = FVector::DotProduct(CamVector, AxisVector);
+//	float CheckRight = FVector::DotProduct(FVector::UpVector, (FVector::CrossProduct(CamVector, AxisVector)));
+//
+////	if (CheckRight < 0)
+////		AngleDiff = -AngleDiff;
+//
+//	UE_LOG(LogTemp, Log, TEXT("%f, %f"), AngleDiff, CheckRight);
+//
+//	AnimInst->SetDodgeDegree(AngleDiff);
+//	DirDodge = AxisVector;
+//
+//
+//
+//	FTimerHandle DodgeEndTimer;
+//
+//	GetWorld()->GetTimerManager().SetTimer(DodgeEndTimer, FTimerDelegate::CreateLambda([&]()
+//		{
+//			SetState(ECharacterState::Idle);
+//			DirDodge = FVector::ZeroVector;
+//			bIsInvisible = false;
+//			AnimInst->SetIsDodge(false);
+//			AnimInst->SetDodgeDegree(0.0f);
+//
+//
+//			bUseControllerRotationYaw = false;
+//			GetCharacterMovement()->bOrientRotationToMovement = true;
+//		}), 0.5f, false);
 
 
 	return false;
