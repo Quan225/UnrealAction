@@ -25,3 +25,26 @@ bool UBTDecorator_CanAttack::CalculateRawConditionValue(UBehaviorTreeComponent& 
 	bool bResult = (Target->GetDistanceTo(ControllingPawn) <= 180.0f);
 	return bResult;
 }
+
+UBTDecorator_CanMove::UBTDecorator_CanMove()
+{
+	NodeName = TEXT("CanMove");
+}
+
+bool UBTDecorator_CanMove::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
+{
+	UE_LOG(LogTemp, Log, TEXT("dddd"));
+
+	APawn* ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
+	if (ControllingPawn == nullptr)
+		return false;
+
+	AEnemy* enemyCharacter = Cast<AEnemy>(OwnerComp.GetAIOwner()->GetPawn());
+	if (enemyCharacter == nullptr)
+		return false;
+
+	if (enemyCharacter->GetState() != ECharacterState::Idle)
+		return false;
+
+	return true;
+}

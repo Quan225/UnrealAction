@@ -29,8 +29,6 @@ void AEnemyAIController::RunAI()
 	if (UseBlackboard(BBoard, Blackboard))
 	{
 		RunBehaviorTree(BTree);
-		test++;
-		UE_LOG(LogTemp, Log, TEXT("AI Con : %d"), test);
 	}
 }
 
@@ -40,7 +38,5 @@ void AEnemyAIController::StopAI()
 	if (BTreeComp == nullptr)
 		return;
 	
-	test--;
-	UE_LOG(LogTemp, Log, TEXT("AI Con : %d"), test);
 	BTreeComp->StopTree(EBTStopMode::Safe);
 }

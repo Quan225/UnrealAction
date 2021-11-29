@@ -19,12 +19,33 @@ public:
 };
 
 UCLASS()
+class PROJECTB_API UBTTask_ClearTarget : public UBTTaskNode
+{
+	GENERATED_BODY()
+
+public:
+	UBTTask_ClearTarget();
+	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+};
+
+UCLASS()
 class PROJECTB_API UBTTask_MoveToTarget : public UBTTaskNode
 {
 	GENERATED_BODY()
 
 public:
 	UBTTask_MoveToTarget();
+
+	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+};
+
+UCLASS()
+class PROJECTB_API UBTTask_RotateToTarget : public UBTTaskNode
+{
+	GENERATED_BODY()
+
+public:
+	UBTTask_RotateToTarget();
 
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 };

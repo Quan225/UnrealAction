@@ -16,6 +16,12 @@ class PROJECTB_API UBTService_Detect : public UBTService
 public:
     UBTService_Detect();
 
+    UPROPERTY(Category = Service, EditAnywhere, meta = (ClampMin = "0.0"))
+    float Sight;
+    
+    UPROPERTY(Category = Service, EditAnywhere, meta = (ClampMin = "0.0"))
+    float IncreaseRateSight;
+
 protected:
     virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
 };

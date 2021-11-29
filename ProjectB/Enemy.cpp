@@ -151,10 +151,12 @@ void AEnemy::Multi_InitCharacter_Implementation(const FString& InitCharacterName
 
 	if (InitCharacterName == "Dusk_Sword")
 	{
+		GetCharacterMovement()->MaxWalkSpeed = 550.0f;
 		GetMesh()->SetAnimInstanceClass(SwordAnimClass);
 	}
 	else
 	{
+		GetCharacterMovement()->MaxWalkSpeed = 480.0f;
 		GetMesh()->SetAnimInstanceClass(GunAnimClass);
 	}
 
@@ -165,6 +167,8 @@ void AEnemy::Multi_InitCharacter_Implementation(const FString& InitCharacterName
 		CharacterName = DataComponent->GetCharacterName();
 		InitStatus(DataComponent->GetCharacterName());
 	}
+
+	SetState(ECharacterState::Idle);
 }
 
 void AEnemy::InitStatus(FString InitCharacterName)
@@ -179,7 +183,6 @@ bool AEnemy::SetState(ECharacterState NewState)
 	switch (NewState)
 	{
 	case ECharacterState::Idle:
-		AnimInst->SetIsAttack(false);
 		ResetAttackFlag();
 		State = NewState;
 		return true;
@@ -390,6 +393,11 @@ bool AEnemy::Stun()
 	SetIsStun(true);
 	AnimInst->SetIsStun(true);
 
+
+	AEnemyAIController* aiCon = Cast<AEnemyAIController>(GetController());
+	if (aiCon != nullptr)
+		aiCon->StopAI();
+
 	FTimerHandle HitCheckEndTimer;
 
 	GetWorld()->GetTimerManager().SetTimer(HitCheckEndTimer, FTimerDelegate::CreateLambda([&]()
@@ -397,6 +405,9 @@ bool AEnemy::Stun()
 			SetIsStun(false);
 			AnimInst->SetIsStun(bIsStun);
 			SetState(ECharacterState::Idle);
+			AEnemyAIController* aiCon = Cast<AEnemyAIController>(GetController());
+			if (aiCon != nullptr)
+				aiCon->RunAI();
 		}), 0.5f, false);
 
 	return true;
