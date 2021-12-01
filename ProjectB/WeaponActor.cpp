@@ -104,29 +104,7 @@ void AWeaponActor::TraceWeaponRange()
 						pc->SpawnImpactEffect(pc->DataComponent->FindImpactEffect("BaseCombo1"), SpawnTr);
 						pc->PlaySoundCue(pc->DataComponent->FindImpactSound("BaseCombo1"), SpawnTr.GetLocation());
 
-
-						// Enemy에 있던것도 하나로 뭉쳐주세요
-						UAnimMontage* CurMontage = pc->AnimInst->GetCurrentActiveMontage();
-						if (CurMontage != nullptr)
-						{
-							int32 CurPlayRate = pc->AnimInst->Montage_GetPlayRate(CurMontage);
-							pc->AnimInst->Montage_SetPlayRate(CurMontage, 0.03f);
-
-							FTimerHandle HitStopTimer;
-
-							GetWorld()->GetTimerManager().SetTimer(HitStopTimer, FTimerDelegate::CreateLambda([CurMontage, CurPlayRate, pc]()
-								{
-									if (CurMontage == nullptr)
-									{
-										UE_LOG(LogTemp, Log, TEXT("CurMontage Is Null"));
-										return;
-									}
-									if (CurMontage != pc->AnimInst->GetCurrentActiveMontage())
-										return;
-
-									pc->AnimInst->Montage_SetPlayRate(CurMontage, CurPlayRate);
-								}), 0.13f, false);
-						}
+						pc->SetMontageDelayPlay(0.05f, 0.1f);
 					}
 
 					UGameplayStatics::ApplyDamage(outHit[i].GetActor(), WeaponPower, nullptr, this, UDamageType::StaticClass());

@@ -47,7 +47,12 @@ protected:
 	UFUNCTION()
 	virtual void OnRep_IsDead();
 
+	FTimerHandle MontageDelayTimer;
+
 public:
+	UFUNCTION()
+	void SetMontageDelayPlay(float DelayPlayRate = 0.05f, float DelayPlayLength = 0.15f);
+
 	void SetIsAttack(bool NewIsAttack);
 	void SetIsStun(bool NewIsStun);
 	void SetIsDead(bool NewIsDead);

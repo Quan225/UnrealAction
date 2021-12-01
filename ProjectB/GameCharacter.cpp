@@ -9,6 +9,35 @@ AGameCharacter::AGameCharacter()
 	MaxHp = 100.0f;
 }
 
+void AGameCharacter::SetMontageDelayPlay(float DelayPlayRate, float DelayPlayLength)
+{
+	if (GetMesh() == nullptr || GetMesh()->AnimScriptInstance == nullptr)
+		return;
+
+	UAnimInstance* AnimInst = GetMesh()->AnimScriptInstance;
+
+	UAnimMontage* CurMontage = AnimInst->GetCurrentActiveMontage();
+	if (CurMontage != nullptr)
+	{
+		AnimInst->Montage_SetPlayRate(CurMontage, DelayPlayRate);
+		if (GetWorld()->GetTimerManager().IsTimerActive(MontageDelayTimer))
+		{
+			GetWorld()->GetTimerManager().ClearTimer(MontageDelayTimer);
+		}
+
+		GetWorld()->GetTimerManager().SetTimer(MontageDelayTimer, FTimerDelegate::CreateLambda([CurMontage, AnimInst]()
+			{
+				if (CurMontage == nullptr)
+					return;
+
+				if (CurMontage != AnimInst->GetCurrentActiveMontage())
+					return;
+
+				AnimInst->Montage_SetPlayRate(CurMontage, 1.0f);
+			}), DelayPlayLength, false);
+	}
+}
+
 void AGameCharacter::OnRep_IsStun()
 {
 }

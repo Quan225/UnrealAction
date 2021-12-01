@@ -294,29 +294,7 @@ void AEnemy::TraceWeaponRange(FVector Start, FVector End)
 					SpawnImpactEffect(DataComponent->FindImpactEffect("Swing"), SpawnTr);
 					PlaySoundCue(DataComponent->FindImpactSound("Swing"), SpawnTr.GetLocation());
 
-					UAnimMontage* CurMontage = AnimInst->GetCurrentActiveMontage();
-					if (CurMontage != nullptr)
-					{
-						int32 CurPlayRate = AnimInst->Montage_GetPlayRate(CurMontage);
-						AnimInst->Montage_SetPlayRate(CurMontage, 0.03f);
-
-						FTimerHandle HitStopTimer;
-
-						GetWorld()->GetTimerManager().SetTimer(HitStopTimer, FTimerDelegate::CreateLambda([CurMontage, CurPlayRate, this]()
-							{
-								if (CurMontage == nullptr)
-								{
-									UE_LOG(LogTemp, Log, TEXT("CurMontage Is Null"));
-									return;
-								}
-								if (CurMontage != AnimInst->GetCurrentActiveMontage())
-									return;
-
-								AnimInst->Montage_SetPlayRate(CurMontage, CurPlayRate);
-							}), 0.15f, false);
-					}
-
-
+					SetMontageDelayPlay(0.05f, 0.1f);
 					IgnoreDamageActor.Add(outHit[i].GetActor());
 				}
 			}
