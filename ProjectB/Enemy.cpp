@@ -109,11 +109,7 @@ void AEnemy::Dead()
 	GetWorld()->GetTimerManager().SetTimer(DeathDelayTimer, FTimerDelegate::CreateLambda([&]()
 		{
 			AProjectBGameStateBase* gs = Cast<AProjectBGameStateBase>(GetWorld()->GetGameState());
-			if (gs != nullptr)
-			{
-				//gs->KillCount++;
-			}
-			else
+			if (gs == nullptr)
 			{
 				return;
 			}
