@@ -143,8 +143,11 @@ void AEnemy::Multi_InitCharacter_Implementation(const FString& InitCharacterName
 	
 	FEnemyInfo ChInfo = GameInst->GetEnemyInfo(InitCharacterName);
 
-	AEnemyAIController* aiCon = Cast<AEnemyAIController>(GetController());
-	aiCon->InitAI(ChInfo.BTree, ChInfo.BBoard);
+	if (GetLocalRole() == ROLE_Authority)
+	{
+		AEnemyAIController* aiCon = Cast<AEnemyAIController>(GetController());
+		aiCon->InitAI(ChInfo.BTree, ChInfo.BBoard);
+	}
 
 	GetMesh()->SetSkeletalMesh(ChInfo.SkeletalMesh);
 	
