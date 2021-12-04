@@ -92,6 +92,7 @@ public:
 	float GetCurStamina() { return CurStamina; }
 
 public:
+	UPROPERTY(Transient, Replicated)
 	ECharacterState State;
 	ECharacterState GetState();
 	virtual bool SetState(ECharacterState NewState) { return false; };

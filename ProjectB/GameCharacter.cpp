@@ -65,6 +65,7 @@ void AGameCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
+	DOREPLIFETIME(AGameCharacter, State);
 	DOREPLIFETIME(AGameCharacter, bIsStun);
 	DOREPLIFETIME(AGameCharacter, bIsDead);
 

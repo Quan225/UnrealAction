@@ -261,7 +261,7 @@ void AEnemy::TraceWeaponRange(FVector Start, FVector End)
 	FCollisionQueryParams collParams;
 	collParams.bFindInitialOverlaps = true;
 
-	float spRadios = 30.0f; // Collider두께 하드코딩
+	float spRadios = 60.0f; // Collider두께 하드코딩
 
 	// 범위 보고싶다면 true
 	if (false)
